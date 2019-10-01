@@ -9,7 +9,7 @@ import {
 import { Block } from "galio-framework";
 
 // screens
-import Home from "../screens/Home";
+import Home from "../screens/Home/Home";
 import Onboarding from "../screens/Onboarding";
 import Pro from "../screens/Pro";
 import Profile from "../screens/Profile";

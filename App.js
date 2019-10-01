@@ -1,11 +1,20 @@
 import React from 'react';
 import { Image } from 'react-native';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import { Block, GalioProvider } from 'galio-framework';
 
 import Screens from './navigation/Screens';
 import { Images, articles, argonTheme } from './constants';
+import reducer from "./reducer";
+
+const middlewares = [thunk];
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(...middlewares)));
+console.log('store', store);
 
 // cache app images
 const assetImages = [
@@ -39,19 +48,23 @@ export default class App extends React.Component {
   render() {
     if(!this.state.isLoadingComplete) {
       return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
+        <Provider store={ store }>
+          <AppLoading
+            startAsync={this._loadResourcesAsync}
+            onError={this._handleLoadingError}
+            onFinish={this._handleFinishLoading}
+          />
+        </Provider>
       );
     } else {
       return (
-        <GalioProvider theme={argonTheme}>
-          <Block flex>
-            <Screens />
-          </Block>
-        </GalioProvider>
+        <Provider store={ store }>
+          <GalioProvider theme={argonTheme}>
+            <Block flex>
+              <Screens />
+            </Block>
+          </GalioProvider>
+        </Provider>
       );
     }
   }
@@ -73,3 +86,5 @@ export default class App extends React.Component {
   };
 
 }
+
+// AppRegistry.registerComponent('App', () => App);
