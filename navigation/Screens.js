@@ -9,13 +9,14 @@ import {
 import { Block } from "galio-framework";
 
 // screens
-import Home from "../screens/Home/Home";
+import Home from "../screens/Home";
 import Onboarding from "../screens/Onboarding";
 import Pro from "../screens/Pro";
 import Profile from "../screens/Profile";
 import Register from "../screens/Register";
 import Elements from "../screens/Elements";
 import Articles from "../screens/Articles";
+import DayOffScreen from "../screens/DayOff";
 // drawer
 import Menu from "./Menu";
 import DrawerItem from "../components/DrawerItem";
@@ -61,33 +62,39 @@ const transitionConfig = (transitionProps, prevTransitionProps) => ({
   }
 });
 
-const ElementsStack = createStackNavigator({
-  Elements: {
-    screen: Elements,
-    navigationOptions: ({ navigation }) => ({
-      header: <Header title="Elements" navigation={navigation} />
-    })
-  }
-},{
-  cardStyle: {
-    backgroundColor: "#F8F9FE"
+const ElementsStack = createStackNavigator(
+  {
+    Elements: {
+      screen: Elements,
+      navigationOptions: ({ navigation }) => ({
+        header: <Header title="Elements" navigation={navigation} />
+      })
+    }
   },
-  transitionConfig
-});
+  {
+    cardStyle: {
+      backgroundColor: "#F8F9FE"
+    },
+    transitionConfig
+  }
+);
 
-const ArticlesStack = createStackNavigator({
-  Articles: {
-    screen: Articles,
-    navigationOptions: ({ navigation }) => ({
-      header: <Header title="Articles" navigation={navigation} />
-    })
-  }
-},{
-  cardStyle: {
-    backgroundColor: "#F8F9FE"
+const ArticlesStack = createStackNavigator(
+  {
+    Articles: {
+      screen: Articles,
+      navigationOptions: ({ navigation }) => ({
+        header: <Header title="Articles" navigation={navigation} />
+      })
+    }
   },
-  transitionConfig
-});
+  {
+    cardStyle: {
+      backgroundColor: "#F8F9FE"
+    },
+    transitionConfig
+  }
+);
 
 const ProfileStack = createStackNavigator(
   {
@@ -95,7 +102,13 @@ const ProfileStack = createStackNavigator(
       screen: Profile,
       navigationOptions: ({ navigation }) => ({
         header: (
-          <Header white transparent title="Profile" iconColor={'#FFF'} navigation={navigation} />
+          <Header
+            white
+            transparent
+            title="Profile"
+            iconColor={"#FFF"}
+            navigation={navigation}
+          />
         ),
         headerTransparent: true
       })
@@ -103,6 +116,38 @@ const ProfileStack = createStackNavigator(
   },
   {
     cardStyle: { backgroundColor: "#FFFFFF" },
+    transitionConfig
+  }
+);
+
+const DayOffStack = createStackNavigator(
+  {
+    DayOff: {
+      screen: DayOffScreen,
+      navigationOptions: ({ navigation }) => ({
+        header: <Header title="DayOff" navigation={navigation} />
+      })
+    },
+    Pro: {
+      screen: Pro,
+      navigationOptions: ({ navigation }) => ({
+        header: (
+          <Header
+            left={<Block />}
+            white
+            transparent
+            title=""
+            navigation={navigation}
+          />
+        ),
+        headerTransparent: true
+      })
+    }
+  },
+  {
+    cardStyle: {
+      backgroundColor: "#F8F9FE"
+    },
     transitionConfig
   }
 );
@@ -119,7 +164,13 @@ const HomeStack = createStackNavigator(
       screen: Pro,
       navigationOptions: ({ navigation }) => ({
         header: (
-          <Header left={<Block />} white transparent title="" navigation={navigation} />
+          <Header
+            left={<Block />}
+            white
+            transparent
+            title=""
+            navigation={navigation}
+          />
         ),
         headerTransparent: true
       })
@@ -135,11 +186,13 @@ const HomeStack = createStackNavigator(
 // divideru se baga ca si cum ar fi un ecrna dar nu-i nimic duh
 const AppStack = createDrawerNavigator(
   {
-    Onboarding: {
-      screen: Onboarding,
-      navigationOptions: {
-        drawerLabel: () => {}
-      }
+    DayOff: {
+      screen: DayOffStack,
+      navigationOptions: navOpt => ({
+        drawerLabel: ({ focused }) => (
+          <DrawerItem focused={focused} title="DayOff" />
+        )
+      })
     },
     Home: {
       screen: HomeStack,
@@ -148,6 +201,12 @@ const AppStack = createDrawerNavigator(
           <DrawerItem focused={focused} title="Home" />
         )
       })
+    },
+    Onboarding: {
+      screen: Onboarding,
+      navigationOptions: {
+        drawerLabel: () => {}
+      }
     },
     Profile: {
       screen: ProfileStack,
