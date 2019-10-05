@@ -9,7 +9,8 @@ import {
 import { Block } from "galio-framework";
 
 // screens
-import Home from "../screens/Home";
+import Home from "../screens/Home/ui/HomePage";
+import LeaveManagement from "../screens/LeaveManagement/ui/LeaveManagement";
 import Onboarding from "../screens/Onboarding";
 import Pro from "../screens/Pro";
 import Profile from "../screens/Profile";
@@ -183,6 +184,33 @@ const HomeStack = createStackNavigator(
     transitionConfig
   }
 );
+
+const LeaveManagementStack = createStackNavigator(
+  {
+    LeaveManagement: {
+      screen: LeaveManagement,
+      navigationOptions: ({ navigation }) => ({
+        header: <Header search options title="Leaving Management" navigation={navigation} />
+      })
+    },
+    Pro: {
+      screen: Pro,
+      navigationOptions: ({ navigation }) => ({
+        header: (
+          <Header left={<Block />} white transparent title="" navigation={navigation} />
+        ),
+        headerTransparent: true
+      })
+    }
+  },
+  {
+    cardStyle: {
+      backgroundColor: "#F8F9FE"
+    },
+    transitionConfig
+  }
+);
+
 // divideru se baga ca si cum ar fi un ecrna dar nu-i nimic duh
 const AppStack = createDrawerNavigator(
   {
@@ -202,11 +230,13 @@ const AppStack = createDrawerNavigator(
         )
       })
     },
-    Onboarding: {
-      screen: Onboarding,
-      navigationOptions: {
-        drawerLabel: () => {}
-      }
+    LeaveManagement: {
+      screen: LeaveManagementStack,
+      navigationOptions: navOpt => ({
+        drawerLabel: ({ focused }) => (
+          <DrawerItem focused={focused} title="Leave Management" />
+        )
+      })
     },
     Profile: {
       screen: ProfileStack,

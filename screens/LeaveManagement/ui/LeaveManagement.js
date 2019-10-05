@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
-import { Card } from '../../components';
-import articles from '../../constants/articles';
-import { getHomePage } from './actionReducer';
+import { Card } from '../../../components';
+import articles from '../../../constants/articles';
+import { getHomePage } from '../actionReducer';
 
 const { width } = Dimensions.get('screen');
 
-class Home extends React.Component {
+class LeaveManagement extends React.Component {
   renderArticles = () => {
     this.props.getHomePage();
     return (
@@ -57,4 +57,4 @@ const mapDispatchToProps = {
   getHomePage
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(LeaveManagement);
