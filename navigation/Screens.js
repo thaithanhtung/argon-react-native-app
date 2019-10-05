@@ -17,6 +17,7 @@ import Profile from "../screens/Profile";
 import Register from "../screens/Register";
 import Elements from "../screens/Elements";
 import Articles from "../screens/Articles";
+import Login from "../screens/Login";
 import DayOffScreen from "../screens/DayOff";
 // drawer
 import Menu from "./Menu";
@@ -214,6 +215,17 @@ const LeaveManagementStack = createStackNavigator(
 // divideru se baga ca si cum ar fi un ecrna dar nu-i nimic duh
 const AppStack = createDrawerNavigator(
   {
+    // Onboarding: {
+    //   screen: Onboarding,
+    //   navigationOptions: {
+    //     drawerLabel: () => {}
+    //   }
+    // },
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        drawerLabel: () => {}
+      }},
     DayOff: {
       screen: DayOffStack,
       navigationOptions: navOpt => ({

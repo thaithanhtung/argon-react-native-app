@@ -1,11 +1,6 @@
 import React from "react";
 import { DrawerItems } from "react-navigation";
-import {
-  ScrollView,
-  StyleSheet,
-  Dimensions,
-  Image
-} from "react-native";
+import { ScrollView, StyleSheet, Dimensions, Image } from "react-native";
 import { Block, theme } from "galio-framework";
 
 import Images from "../constants/Images";
@@ -13,7 +8,10 @@ import Images from "../constants/Images";
 const { width } = Dimensions.get("screen");
 
 const Drawer = props => (
-  <Block style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
+  <Block
+    style={styles.container}
+    forceInset={{ top: "always", horizontal: "never" }}
+  >
     <Block flex={0.05} style={styles.header}>
       <Image styles={styles.logo} source={Images.Logo} />
     </Block>
@@ -55,13 +53,13 @@ const Menu = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   header: {
     paddingHorizontal: 28,
     paddingBottom: theme.SIZES.BASE,
     paddingTop: theme.SIZES.BASE * 3,
-    justifyContent: 'center'
+    justifyContent: "center"
   }
 });
 

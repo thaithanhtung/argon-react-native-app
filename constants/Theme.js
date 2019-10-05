@@ -28,6 +28,10 @@ export default {
     BORDER: "#CAD1D7",
     WHITE: "#FFFFFF",
     BLACK: "#000000",
+    PINK: "#FE1F73",
+    ICON_EYE: "#A6A6A6",
     GRAY: "#78909c"
+  },
+  SIZES: { BASE: 16 }
   }
 };
