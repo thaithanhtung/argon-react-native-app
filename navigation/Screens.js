@@ -16,6 +16,7 @@ import Profile from "../screens/Profile";
 import Register from "../screens/Register";
 import Elements from "../screens/Elements";
 import Articles from "../screens/Articles";
+import Login from "../screens/Login";
 // drawer
 import Menu from "./Menu";
 import DrawerItem from "../components/DrawerItem";
@@ -61,33 +62,39 @@ const transitionConfig = (transitionProps, prevTransitionProps) => ({
   }
 });
 
-const ElementsStack = createStackNavigator({
-  Elements: {
-    screen: Elements,
-    navigationOptions: ({ navigation }) => ({
-      header: <Header title="Elements" navigation={navigation} />
-    })
-  }
-},{
-  cardStyle: {
-    backgroundColor: "#F8F9FE"
+const ElementsStack = createStackNavigator(
+  {
+    Elements: {
+      screen: Elements,
+      navigationOptions: ({ navigation }) => ({
+        header: <Header title="Elements" navigation={navigation} />
+      })
+    }
   },
-  transitionConfig
-});
+  {
+    cardStyle: {
+      backgroundColor: "#F8F9FE"
+    },
+    transitionConfig
+  }
+);
 
-const ArticlesStack = createStackNavigator({
-  Articles: {
-    screen: Articles,
-    navigationOptions: ({ navigation }) => ({
-      header: <Header title="Articles" navigation={navigation} />
-    })
-  }
-},{
-  cardStyle: {
-    backgroundColor: "#F8F9FE"
+const ArticlesStack = createStackNavigator(
+  {
+    Articles: {
+      screen: Articles,
+      navigationOptions: ({ navigation }) => ({
+        header: <Header title="Articles" navigation={navigation} />
+      })
+    }
   },
-  transitionConfig
-});
+  {
+    cardStyle: {
+      backgroundColor: "#F8F9FE"
+    },
+    transitionConfig
+  }
+);
 
 const ProfileStack = createStackNavigator(
   {
@@ -95,7 +102,13 @@ const ProfileStack = createStackNavigator(
       screen: Profile,
       navigationOptions: ({ navigation }) => ({
         header: (
-          <Header white transparent title="Profile" iconColor={'#FFF'} navigation={navigation} />
+          <Header
+            white
+            transparent
+            title="Profile"
+            iconColor={"#FFF"}
+            navigation={navigation}
+          />
         ),
         headerTransparent: true
       })
@@ -119,7 +132,13 @@ const HomeStack = createStackNavigator(
       screen: Pro,
       navigationOptions: ({ navigation }) => ({
         header: (
-          <Header left={<Block />} white transparent title="" navigation={navigation} />
+          <Header
+            left={<Block />}
+            white
+            transparent
+            title=""
+            navigation={navigation}
+          />
         ),
         headerTransparent: true
       })
@@ -135,8 +154,14 @@ const HomeStack = createStackNavigator(
 // divideru se baga ca si cum ar fi un ecrna dar nu-i nimic duh
 const AppStack = createDrawerNavigator(
   {
-    Onboarding: {
-      screen: Onboarding,
+    // Onboarding: {
+    //   screen: Onboarding,
+    //   navigationOptions: {
+    //     drawerLabel: () => {}
+    //   }
+    // },
+    Login: {
+      screen: Login,
       navigationOptions: {
         drawerLabel: () => {}
       }
