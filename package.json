@@ -30,7 +30,12 @@
     "react-native-modal-datetime-picker": "^7.6.0",
     "react-native-modal-dropdown": "^0.6.2",
     "react-native-popup-dialog": "^0.18.3",
-    "react-navigation": "^3.11.0"
+    "react-navigation": "^3.11.0",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "redux-act": "^1.7.7",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"
