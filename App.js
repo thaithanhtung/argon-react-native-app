@@ -1,11 +1,23 @@
-import React from 'react';
-import { Image } from 'react-native';
-import { AppLoading } from 'expo';
-import { Asset } from 'expo-asset';
-import { Block, GalioProvider } from 'galio-framework';
+import React from "react";
+import { Image } from "react-native";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+import { AppLoading } from "expo";
+import { Asset } from "expo-asset";
+import { Block, GalioProvider } from "galio-framework";
 
-import Screens from './navigation/Screens';
-import { Images, articles, argonTheme } from './constants';
+import Screens from "./navigation/Screens";
+import { Images, articles, argonTheme } from "./constants";
+import reducer from "./reducer";
+
+const middlewares = [thunk];
+const store = createStore(
+  reducer,
+  composeWithDevTools(applyMiddleware(...middlewares))
+);
+console.log("store", store);
 
 // cache app images
 const assetImages = [
@@ -23,7 +35,7 @@ articles.map(article => assetImages.push(article.image));
 
 function cacheImages(images) {
   return images.map(image => {
-    if (typeof image === 'string') {
+    if (typeof image === "string") {
       return Image.prefetch(image);
     } else {
       return Asset.fromModule(image).downloadAsync();
@@ -33,33 +45,35 @@ function cacheImages(images) {
 
 export default class App extends React.Component {
   state = {
-    isLoadingComplete: false,
-  }
-  
+    isLoadingComplete: false
+  };
+
   render() {
-    if(!this.state.isLoadingComplete) {
+    if (!this.state.isLoadingComplete) {
       return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
+        <Provider store={store}>
+          <AppLoading
+            startAsync={this._loadResourcesAsync}
+            onError={this._handleLoadingError}
+            onFinish={this._handleFinishLoading}
+          />
+        </Provider>
       );
     } else {
       return (
-        <GalioProvider theme={argonTheme}>
-          <Block flex>
-            <Screens />
-          </Block>
-        </GalioProvider>
+        <Provider store={store}>
+          <GalioProvider theme={argonTheme}>
+            <Block flex>
+              <Screens />
+            </Block>
+          </GalioProvider>
+        </Provider>
       );
     }
   }
 
   _loadResourcesAsync = async () => {
-    return Promise.all([
-      ...cacheImages(assetImages),
-    ]);
+    return Promise.all([...cacheImages(assetImages)]);
   };
 
   _handleLoadingError = error => {
@@ -71,5 +85,6 @@ export default class App extends React.Component {
   _handleFinishLoading = () => {
     this.setState({ isLoadingComplete: true });
   };
-
 }
+
+// AppRegistry.registerComponent('App', () => App);

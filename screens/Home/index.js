@@ -1,13 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
-import { Card } from '../components';
-import articles from '../constants/articles';
+import { Card } from '../../components';
+import articles from '../../constants/articles';
+import { getHomePage } from './actionReducer';
+
 const { width } = Dimensions.get('screen');
 
 class Home extends React.Component {
   renderArticles = () => {
+    this.props.getHomePage();
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -44,4 +48,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+const mapStateToProps = (state) => {
+  const { friends } = state
+  return { friends }
+};
+
+const mapDispatchToProps = {
+  getHomePage
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

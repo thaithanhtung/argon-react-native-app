@@ -9,7 +9,8 @@ import {
 import { Block } from "galio-framework";
 
 // screens
-import Home from "../screens/Home";
+import Home from "../screens/Home/ui/HomePage";
+import LeaveManagement from "../screens/LeaveManagement/ui/LeaveManagement";
 import Onboarding from "../screens/Onboarding";
 import Pro from "../screens/Pro";
 import Profile from "../screens/Profile";
@@ -17,6 +18,7 @@ import Register from "../screens/Register";
 import Elements from "../screens/Elements";
 import Articles from "../screens/Articles";
 import Login from "../screens/Login";
+import DayOffScreen from "../screens/DayOff";
 // drawer
 import Menu from "./Menu";
 import DrawerItem from "../components/DrawerItem";
@@ -120,6 +122,38 @@ const ProfileStack = createStackNavigator(
   }
 );
 
+const DayOffStack = createStackNavigator(
+  {
+    DayOff: {
+      screen: DayOffScreen,
+      navigationOptions: ({ navigation }) => ({
+        header: <Header title="DayOff" navigation={navigation} />
+      })
+    },
+    Pro: {
+      screen: Pro,
+      navigationOptions: ({ navigation }) => ({
+        header: (
+          <Header
+            left={<Block />}
+            white
+            transparent
+            title=""
+            navigation={navigation}
+          />
+        ),
+        headerTransparent: true
+      })
+    }
+  },
+  {
+    cardStyle: {
+      backgroundColor: "#F8F9FE"
+    },
+    transitionConfig
+  }
+);
+
 const HomeStack = createStackNavigator(
   {
     Home: {
@@ -151,6 +185,33 @@ const HomeStack = createStackNavigator(
     transitionConfig
   }
 );
+
+const LeaveManagementStack = createStackNavigator(
+  {
+    LeaveManagement: {
+      screen: LeaveManagement,
+      navigationOptions: ({ navigation }) => ({
+        header: <Header search options title="Leaving Management" navigation={navigation} />
+      })
+    },
+    Pro: {
+      screen: Pro,
+      navigationOptions: ({ navigation }) => ({
+        header: (
+          <Header left={<Block />} white transparent title="" navigation={navigation} />
+        ),
+        headerTransparent: true
+      })
+    }
+  },
+  {
+    cardStyle: {
+      backgroundColor: "#F8F9FE"
+    },
+    transitionConfig
+  }
+);
+
 // divideru se baga ca si cum ar fi un ecrna dar nu-i nimic duh
 const AppStack = createDrawerNavigator(
   {
@@ -164,13 +225,28 @@ const AppStack = createDrawerNavigator(
       screen: Login,
       navigationOptions: {
         drawerLabel: () => {}
-      }
+      }},
+    DayOff: {
+      screen: DayOffStack,
+      navigationOptions: navOpt => ({
+        drawerLabel: ({ focused }) => (
+          <DrawerItem focused={focused} title="DayOff" />
+        )
+      })
     },
     Home: {
       screen: HomeStack,
       navigationOptions: navOpt => ({
         drawerLabel: ({ focused }) => (
           <DrawerItem focused={focused} title="Home" />
+        )
+      })
+    },
+    LeaveManagement: {
+      screen: LeaveManagementStack,
+      navigationOptions: navOpt => ({
+        drawerLabel: ({ focused }) => (
+          <DrawerItem focused={focused} title="Leave Management" />
         )
       })
     },
