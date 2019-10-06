@@ -89,7 +89,7 @@ class DayOff extends React.Component {
       nameNotification: `Bạn có muốn chọn ngày ${id} để làm ngày nghỉ trong tuần`,
       dateOffWeek: {
         ...this.state.dateOffWeek,
-        t7: !this.state.dateOffWeek.t7
+        [id]: !this.state.dateOffWeek[id]
       }
     });
   };
